@@ -36,4 +36,4 @@ Contains all processes and worflows to run
 Contains all the source codes/tools
 ## how the pipeline is working
 The pipeline takes multiple samples (i.e fastq.gz files) as initial input, and all fastq files are run in parallel. The ouputs from one process feed into relevant subsequent processes. Therefore, one set off will run all samples. 
-
+![Image of workflow](workflow.png)
