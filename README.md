@@ -34,4 +34,6 @@ Contains all parameters used in different processes
 Contains all processes and worflows to run
 ### bin folder
 Contains all the source codes/tools
+## how the pipeline is working
+The pipeline takes multiple samples (i.e fastq.gz files) as initial input, and all fastq files are run in parallel. The ouputs from one process feed into relevant subsequent processes. Therefore, one set off will run all samples. 
 
