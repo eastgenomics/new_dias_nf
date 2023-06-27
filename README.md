@@ -20,10 +20,10 @@ To build nextflow dias on DNAnexus
  
 To run the build nextflow applet on DNAnexus 
 
-`dx run applet-xxxx \
+dx run applet-xxxx \
  -idocker_creds=file-xxxx \
  -i nextflow_pipeline_params="--file_path="dx://project-xxxx:/" \
- --fastq="dx://project-xxxx:/*fastq.gz"" `
+ --fastq="dx://project-xxxx:/*fastq.gz"" 
  
 docker_creds file has to be created privately \
 --file_path is the DNAnexus where the fastq files are located \
