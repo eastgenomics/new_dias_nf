@@ -17,9 +17,11 @@ Current nextflow dias has the following app
  
  
 ### To build nextflow_dias on DNAnexus
- - git clone <repo>
- - dx select <DNAnexus project>
- - dx build --nextflow (inside the cloned folder)
+```
+ git clone <repo>
+ dx select <DNAnexus project>
+ dx build --nextflow (inside the cloned folder)
+ ```
  
 ### To run the built nextflow applet on DNAnexus 
 
