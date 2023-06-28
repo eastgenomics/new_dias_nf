@@ -16,7 +16,7 @@ Current nextflow dias has the following app
  - mosdepth
  
  
-### To build nextflow dias on DNAnexus
+### To build nextflow_dias on DNAnexus
  - git clone <repo>
  - dx select <DNAnexus project>
  - dx build --nextflow (inside the cloned folder)
