@@ -13,6 +13,7 @@ Current nextflow dias has the following app
  - somalier_relate
  - somalier_relate2multiqc
  - multiQC
+ - mosdepth
  
  
 ### To build nextflow dias on DNAnexus
