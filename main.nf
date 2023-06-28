@@ -105,7 +105,7 @@ process picard {
     output:
     path "${sorted_bam.getBaseName()}/*.tsv", emit: tsv
     path "${sorted_bam.getBaseName()}/*hsmetrics.tsv", emit: hsmetrics
-    path "${sorted_bam.getBaseName()}/*{.pdf,metrics}", emit: other
+    //path "${sorted_bam.getBaseName()}/*{.pdf,metrics}", emit: other
 
     """
     #!/bin/bash 
@@ -299,6 +299,58 @@ process somalier_relate2multiqc {
     
 }
 
+process get_ref_genome{
+
+    debug true
+    publishDir params.outdir8, mode:'copy'
+    tag "${reads[0]}"
+    input:
+    
+    tuple val(sample_id), path(reads) 
+    output:
+    
+    path "*.txt"
+    
+    script:
+
+    """
+    #!/bin/bash
+    echo ${reads[0]}
+    echo ${reads[1]}
+    bash nextflow-bin/get_ref_build.sh ${reads[0]}
+    """
+    
+
+}
+       
+process MOSDEPTH {
+        
+    debug true
+    publishDir params.outdir8, mode:'copy'
+    tag "${reads[0]}"
+    input:
+    
+    tuple val(sample_id), path(reads) 
+    path bed
+        
+    output:
+    
+    path "*.txt"
+    path "*bed*"
+    
+    
+    script:
+
+    """
+    #!/bin/bash
+    echo ${reads[0]}
+    echo ${reads[1]}
+   
+    mosdepth --by ${bed} --flag 1796 --mapq 20 ${reads[0].baseName} ${reads[0]}
+    """
+
+}
+
 
 workflow 
 {   fastq_ch = Channel.fromPath(params.fastq)
@@ -317,6 +369,10 @@ picard(untar.out.genome,runSentieon.out.sorted_bam,params.bedfile,params.run_Col
     get_ped(somalier_extract.out.somalier_extract_output.collect())     
     somalier_relate(somalier_extract.out.somalier_extract_output.collect(),get_ped.out.ped_file)       
     somalier_relate2multiqc(somalier_relate.out.som_samples_tsv,params.female_threshold,params.male_threshold)
+
+    MOSDEPTH(runSentieon.out.bam_file_pair,params.bed)
+    get_ref_genome(runSentieon.out.bam_file_pair)
+
     MULTIQC(picard.out.tsv.mix(fastQC.out.fastqc_results,runSentieon.out.sentieon_multiqc,verifybamID.out.verifybamID_qc,samtools.out.samtools_flagstat,somalier_relate2multiqc.out.som_samples_tsv_multiqc).collect(),params.multiqc_config)
 
 
