@@ -351,6 +351,30 @@ process MOSDEPTH {
 
 }
 
+process vcf_qc {
+    
+    debug true
+    tag "$vcf"
+    publishDir params.outdir9, mode:'copy'
+    
+    input:
+    
+    path vcf
+    path bed
+
+    output:
+    
+    path "*.QC"
+    
+    """
+    #!/bin/bash 
+    
+    python3 nextflow-bin/vcf_QC.py $vcf $bed > ${vcf.getBaseName()}.QC
+    
+    """
+}
+
+
 
 workflow 
 {   fastq_ch = Channel.fromPath(params.fastq)
@@ -372,7 +396,7 @@ picard(untar.out.genome,runSentieon.out.sorted_bam,params.bedfile,params.run_Col
 
     MOSDEPTH(runSentieon.out.bam_file_pair,params.bed)
     get_ref_genome(runSentieon.out.bam_file_pair)
-
+    vcf_qc(runSentieon.out.Haplotyper_vcf_gz,params.bed)
     MULTIQC(picard.out.tsv.mix(fastQC.out.fastqc_results,runSentieon.out.sentieon_multiqc,verifybamID.out.verifybamID_qc,samtools.out.samtools_flagstat,somalier_relate2multiqc.out.som_samples_tsv_multiqc).collect(),params.multiqc_config)
 
 
