@@ -28,7 +28,7 @@ Current nextflow dias has the following app
 ```
 dx run applet-xxxx \
 -idocker_creds=file-xxxx \
--i nextflow_pipeline_params="--file_path="dx://project-xxxx:/" --fastq="dx://project-xxxx:/*fastq.gz""
+-i nextflow_pipeline_params="--file_path="dx://project-xxxx:/""
 ```
  
 `docker_creds file` is `.json` file and to be created with docker user name and token as described [here](https://documentation.dnanexus.com/user/running-apps-and-workflows/running-nextflow-pipelines#private-docker-repository). Docker crendential file is to be saved in private DNAnexus project \
