@@ -14,6 +14,7 @@ Current nextflow dias has the following app
  - somalier_relate2multiqc
  - multiQC
  - mosdepth
+ - vcf_qc
  
  
 ### To build nextflow_dias on DNAnexus
@@ -24,12 +25,14 @@ Current nextflow dias has the following app
  ```
  
 ### To run the built nextflow applet on DNAnexus 
-
-`dx run applet-xxxx -idocker_creds=file-xxxx -i nextflow_pipeline_params="--file_path="dx://project-xxxx:/" --fastq="dx://project-xxxx:/*fastq.gz""`
+```
+dx run applet-xxxx \
+-idocker_creds=file-xxxx \
+-i nextflow_pipeline_params="--file_path="dx://project-xxxx:/" --fastq="dx://project-xxxx:/*fastq.gz""
+```
  
 `docker_creds file` is `.json` file and to be created with docker user name and token as described [here](https://documentation.dnanexus.com/user/running-apps-and-workflows/running-nextflow-pipelines#private-docker-repository). Docker crendential file is to be saved in private DNAnexus project \
-`--file_path` is the dir where the fastq files are located on DNAnexus \
-`--fastq` is the same directory but with file exentsion 
+`--file_path` is the dir where the all fastq files are located on DNAnexus 
 
 ### nextflow.config
 Contains all parameters used in different processes
@@ -38,5 +41,5 @@ Contains all processes and worflows to run
 ### bin folder
 Contains all the source codes/tools
 ## How the pipeline works
-The pipeline takes multiple samples (i.e fastq.gz files) as initial input, and all fastq files are run in parallel. The ouputs from one process feed into relevant subsequent processes. Therefore, one set off will run all samples. 
+The pipeline takes multiple samples (i.e fastq.gz files) as initial input, and all fastq files inside `--file_path` are run in parallel. The ouputs from one process feed into relevant subsequent processes. Therefore, one set off will run all samples. 
 ![Image of workflow](workflow1.png)
