@@ -16,7 +16,13 @@ Current nextflow dias has the following app
  - mosdepth
  - vcf_qc
  
- 
+### nextflow.config
+Contains all parameters used in different processes
+### main.nf
+Contains all processes and worflows to run
+### bin folder
+Contains all the source codes/tools
+
 ### To build nextflow_dias on DNAnexus
 ```
  git clone <repo>
@@ -34,12 +40,7 @@ dx run applet-xxxx \
 `docker_creds file` is `.json` file and to be created with docker user name and token as described [here](https://documentation.dnanexus.com/user/running-apps-and-workflows/running-nextflow-pipelines#private-docker-repository). Docker crendential file is to be saved in private DNAnexus project \
 `--file_path` is the dir where the all fastq files are located on DNAnexus 
 
-### nextflow.config
-Contains all parameters used in different processes
-### main.nf
-Contains all processes and worflows to run
-### bin folder
-Contains all the source codes/tools
+
 ## How the pipeline works
-The pipeline takes multiple samples (i.e fastq.gz files) as initial input, and all fastq files inside `--file_path` are run in parallel. The ouputs from one process feed into relevant subsequent processes. Therefore, one set off will run all samples. 
+The pipeline takes multiple samples (i.e fastq.gz files) as initial input, and all fastq files inside `--file_path` are run in parallel. The ouputs from one process feed into relevant subsequent processes. Therefore, one set off will run all samples in series of processes. 
 ![Image of workflow](workflow1.png)
