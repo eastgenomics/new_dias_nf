@@ -1,9 +1,9 @@
 # dias_nextflow
 
 At the moment, configuration of Dias into nextflow is mainly based on CEN assay; therefore, some reference files need to be replaced in the command line if to run TWE assay.
-In the future, this will be improved so that the correct ref will be called based on the assay.
+In the future, this will be improved so that the relevant ref files will be used based on the assay.
 
-Current nextflow dias has the following app 
+Current dias_nextflow has the following processes 
  - multi_fastQC
  - sentieon
  - picard
@@ -23,14 +23,14 @@ Contains all processes and worflows to run
 ### bin folder
 Contains all the source codes/tools
 
-### To build nextflow_dias on DNAnexus
+### To build dias_nextflow on DNAnexus
 ```
  git clone <repo>
  dx select <DNAnexus project>
  dx build --nextflow (inside the cloned folder)
  ```
  
-### To run the built nextflow applet on DNAnexus 
+### To run the built dias_nextflow applet on DNAnexus 
 ```
 dx run applet-xxxx \
 -idocker_creds=file-xxxx \
@@ -42,5 +42,5 @@ dx run applet-xxxx \
 
 
 ## How the pipeline works
-The pipeline takes multiple samples (i.e fastq.gz files) as initial input, and all fastq files inside `--file_path` are run in parallel. The ouputs from one process feed into relevant subsequent processes. Therefore, one set off will run all samples in series of processes. 
+The pipeline takes multiple samples (i.e fastq.gz files) as initial input, and all fastq files inside `--file_path` are run in parallel. The ouputs from one process  are fed into relevant subsequent processes. Therefore, one set off will run all samples in a series of processes. 
 ![Image of workflow](workflow1.png)
