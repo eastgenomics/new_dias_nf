@@ -7,7 +7,7 @@ Current dias_nextflow has the following processes
  - multi_fastQC
  - sentieon
  - picard
- - verifybamiD
+ - verifybamID
  - samtools_flagstat
  - somalier_extract
  - somalier_relate
@@ -15,6 +15,15 @@ Current dias_nextflow has the following processes
  - multiQC
  - mosdepth
  - vcf_qc
+ 
+### Tools and version used in the pipeline
+ - fastqc_v0.12.1 
+ - sentieon-genomics-202112.07
+ - picard - downloaded from (eggd_picardqc)[https://github.com/eastgenomics/eggd_picardqc/tree/master/resources]
+ - verifybamID - downloaded from (eggd_verifybamid)[https://github.com/eastgenomics/eggd_verifybamid/tree/master/resources/usr/bin]
+ - samtools-v1.16.1
+ - bedtools-2.29.1
+ 
  
 ### nextflow.config
 Contains all parameters used in different processes
