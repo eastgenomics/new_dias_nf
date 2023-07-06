@@ -1,5 +1,9 @@
 nextflow.enable.dsl=2
 
+include { untar } from './modules/untar'
+//include { GATK4_INDEXFEATUREFILE            } from '../modules/nf-core/gatk4/indexfeaturefile/main'
+
+
 process fastQC {
     
     debug true
@@ -65,6 +69,7 @@ process runSentieon
         """
 }
 
+/*
 process untar {
     
     debug true
@@ -84,6 +89,7 @@ process untar {
     bash nextflow-bin/untar.sh $fasta_index 
     """
 }
+*/
 
 process picard {
     
