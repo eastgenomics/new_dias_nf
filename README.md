@@ -15,12 +15,13 @@ Current dias_nextflow has the following processes
  - multiQC
  - mosdepth
  - vcf_qc
+ - vcfeval_hap.py
  
 ### Tools and version used in the pipeline
  - fastqc_v0.12.1 
  - sentieon-genomics-202112.07
- - picard - downloaded from [eggd_picardqc](https://github.com/eastgenomics/eggd_picardqc/tree/master/resources)
- - verifybamID - downloaded from [eggd_verifybamid](https://github.com/eastgenomics/eggd_verifybamid/tree/master/resources/usr/bin)
+ - picard - downloaded from [eggd_picardqc](https://github.com/eastgenomics/eggd_picardqc/tree/master/resources) (Release v1.0.0)
+ - verifybamID - downloaded from [eggd_verifybamid](https://github.com/eastgenomics/eggd_verifybamid/tree/master/resources/usr/bin) (Release v2.2.0)
  - samtools-v1.16.1
  - bedtools-2.29.1
  
@@ -41,13 +42,15 @@ Contains all the source codes/tools
  
 ### To run the built dias_nextflow applet on DNAnexus 
 ```
-dx run applet-xxxx \
--idocker_creds=file-xxxx \
--i nextflow_pipeline_params="--file_path="dx://project-xxxx:/""
+ dx run applet-xxx \
+ -idocker_creds=file-xxx \
+ -i nextflow_pipeline_params="--file_path="dx://project-xxx/path/to/folder/" \
+ --genome_in_a_bottle="prefix_for_GIAB_file""
 ```
  
 `docker_creds file` is `.json` file and to be created with docker user name and token as described [here](https://documentation.dnanexus.com/user/running-apps-and-workflows/running-nextflow-pipelines#private-docker-repository). Docker crendential file is to be saved in private DNAnexus project \
 `--file_path` is the dir where the all fastq files are located on DNAnexus 
+`--genome_in_a_bottle` is a string - prefix of GIAB test sample (if this variable is constant for every Dias run, I can put it in the config file, so don't need to provide in the command line) 
 
 
 ## How the pipeline works

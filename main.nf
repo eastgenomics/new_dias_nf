@@ -37,6 +37,7 @@ process runSentieon
         path gatkResource
         
     output:
+        
         path "*_markdup.bam.recalibration_table"
         path "*_markdup_recalibrated_Haplotyper.g.vcf.gz"
         path "*_markdup_recalibrated_Haplotyper.vcf.gz", emit:Haplotyper_vcf_gz
@@ -69,7 +70,7 @@ process untar {
     
     debug true
     
-    publishDir params.outdir2, mode:'copy'
+    //publishDir params.outdir2, mode:'copy'
     
     input:
     
@@ -127,8 +128,9 @@ process verifybamID {
     tuple val(sample_id), path(reads) 
     
     output:
-    path "${reads[0].getBaseName()}/*", emit: verifybamID_qc
-    
+    path "${reads[0].getBaseName()}/*.selfSM", emit: verifybamID_qc
+    path "${reads[0].getBaseName()}/*.depthSM"
+    path "${reads[0].getBaseName()}/*.log"
     """
     #!/bin/bash 
     echo "now running ${reads[0]} and ${reads[1]}"
@@ -177,7 +179,8 @@ process MULTIQC {
     script:
     
     """
-    
+    #!/bin/bash
+    set -euxo pipefail
     multiqc --config $multiqc_config .
     """
        
@@ -228,7 +231,7 @@ process somalier_extract {
 }
 
 process get_ped {
-    tag "$somalier_extract_output"
+    //tag "$somalier_extract_output"
     debug true
     publishDir params.outdir7, mode:'copy'
     
@@ -374,7 +377,53 @@ process vcf_qc {
     """
 }
 
+process happy{
 
+    debug true
+    publishDir params.outdir10, mode:'copy'
+    
+    input:
+    path ref_fasta
+    path reference_fasta_index
+    path high_conf_bed
+    path panel_bed
+    path truth_vcf
+    path query_vcf
+    path sdf_tar
+    
+    output:
+    path "*.csv"
+    path "*.gz"
+    path "*roc.all.csv.gz",emit:happy_roc
+    
+    script:
+
+    """
+    #!/bin/bash
+    echo "GIAB VCF - $query_vcf"
+    gzip -d --force $ref_fasta
+    tar -xvf $sdf_tar
+    bash nextflow-bin/code_happy.sh ${ref_fasta.getBaseName()} $high_conf_bed $panel_bed "${query_vcf.toString().split("\\_")[0]}_happy_output" $truth_vcf $query_vcf "${sdf_tar.toString().split("\\-")[0]}.sdf"
+    """
+}
+process reppy{
+
+    debug true
+    publishDir params.outdir10, mode:'copy'
+    
+    input:
+    path happy_roc
+    
+    output:
+    path "*.html"
+    
+    script:
+
+    """
+    python /app/benchmarking-tools/reporting/basic/bin/rep.py -o "${happy_roc.toString().split("\\_")[0]}_summary.html" "${happy_roc.toString().split("\\_")[0]}_vcfeval-hap.py":$happy_roc
+  
+    """
+}
 
 workflow 
 {   fastq_ch = Channel.fromPath(params.fastq)
@@ -383,6 +432,7 @@ workflow
                 .fromFilePairs(params.fastq_files,size: 4)
     fastQC(fastq_ch)
     runSentieon(read_pairs_ch, params.bwaIndex, params.fastaFile, params.fastaIndex,params.gatkResource)
+    runSentieon.out.Haplotyper_vcf_gz.collect().map{it -> (it.findAll{it.baseName.contains(params.genome_in_a_bottle)})}.view()
     untar(params.fasta_index)
 picard(untar.out.genome,runSentieon.out.sorted_bam,params.bedfile,params.run_CollectMultipleMetrics,params.run_CollectHsMetrics,params.run_CollectTargetedPcrMetrics,params.run_CollectRnaSeqMetrics) 
     
@@ -399,6 +449,8 @@ picard(untar.out.genome,runSentieon.out.sorted_bam,params.bedfile,params.run_Col
     vcf_qc(runSentieon.out.Haplotyper_vcf_gz,params.bed)
     MULTIQC(picard.out.tsv.mix(fastQC.out.fastqc_results,runSentieon.out.sentieon_multiqc,verifybamID.out.verifybamID_qc,samtools.out.samtools_flagstat,somalier_relate2multiqc.out.som_samples_tsv_multiqc).collect(),params.multiqc_config)
 
+happy(params.ref_fasta,params.reference_fasta_index,params.high_conf_bed,params.panel_bed,params.truth_vcf,runSentieon.out.Haplotyper_vcf_gz.collect().map{it -> (it.findAll{it.baseName.contains(params.genome_in_a_bottle)})},params.sdf_tar)
+    reppy(happy.out.happy_roc)
 
     if (params.calc_custom_coverage==true) {
       Calc_Custom_Coverage(params.num_samples,params.depth,picard.out.hsmetrics.collect())
