@@ -50,7 +50,7 @@ workflow
     MOSDEPTH(runSentieon.out.bam_file_pair,params.bed)
     get_ref_genome(runSentieon.out.bam_file_pair)
     vcf_qc(runSentieon.out.Haplotyper_vcf_gz,params.bed)
-    MULTIQC(picard.out.tsv.mix(fastQC.out.fastqc_results,runSentieon.out.sentieon_multiqc,verifybamID.out.verifybamID_qc,samtools.out.samtools_flagstat,somalier_relate2multiqc.out.som_samples_tsv_multiqc).collect(),params.multiqc_config)
+    MULTIQC(picard.out.tsv.mix(fastQC.out.fastqc_results,runSentieon.out.sentieon_multiqc,verifybamID.out.verifybamID_qc,samtools_flagstat.out.samtools_flagstat,somalier_relate2multiqc.out.som_samples_tsv_multiqc).collect(),params.multiqc_config)
 
 
     if (params.calc_custom_coverage==true) {
