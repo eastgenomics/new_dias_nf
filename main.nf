@@ -18,6 +18,7 @@ include { MOSDEPTH } from './modules/mosdepth'
 include { get_ref_genome } from './modules/get_ref_genome'
 include { vcf_qc } from './modules/vcf_qc'
 include { MULTIQC } from './modules/multiqc'
+include { Calc_Custom_Coverage } from './modules/calc_custom_coverage'
 
 // -------------------------------------
 // 
