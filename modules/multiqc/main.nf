@@ -15,7 +15,8 @@ process MULTIQC {
     script:
     
     """
-    
+    #!/bin/bash
+    set -euxo pipefail
     multiqc --config $multiqc_config .
     """
        

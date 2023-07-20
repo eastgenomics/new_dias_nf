@@ -10,8 +10,9 @@ process verifybamID {
     tuple val(sample_id), path(reads) 
     
     output:
-    path "${reads[0].getBaseName()}/*", emit: verifybamID_qc
-    
+    path "${reads[0].getBaseName()}/*.selfSM", emit: verifybamID_qc
+    path "${reads[0].getBaseName()}/*.depthSM"
+    path "${reads[0].getBaseName()}/*.log"    
     """
     #!/bin/bash 
     echo "now running ${reads[0]} and ${reads[1]}"

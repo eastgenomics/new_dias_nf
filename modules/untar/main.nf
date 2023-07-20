@@ -2,7 +2,7 @@ process untar {
     
     debug true
     
-    publishDir params.outdir2, mode:'copy'
+    //publishDir params.outdir2, mode:'copy'
     
     input:
     

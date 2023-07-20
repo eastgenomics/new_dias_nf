@@ -1,5 +1,5 @@
 process get_ped {
-    tag "$somalier_extract_output"
+    //tag "$somalier_extract_output"
     debug true
     publishDir params.outdir7, mode:'copy'
     
