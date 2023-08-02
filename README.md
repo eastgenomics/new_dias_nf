@@ -29,7 +29,11 @@ Current dias_nextflow has the following processes
 ### nextflow.config
 Contains all parameters used in different processes
 ### main.nf
-Contains all processes and worflows to run
+Calls the modules and runs workflows
+### nextflow_schema.json
+Defines the parameter type
+### modules
+Contains modules for all processes 
 ### bin folder
 Contains all the source codes/tools
 
@@ -42,13 +46,12 @@ Contains all the source codes/tools
  
 ### To run the built dias_nextflow applet on DNAnexus 
 ```
- dx run applet-xxx \
- -idocker_creds=file-xxx \
- -i nextflow_pipeline_params="--file_path="dx://project-xxx/path/to/folder/" \
- --genome_in_a_bottle="prefix_for_GIAB_file""
+dx run applet-xxxx \
+-ifastaFile="project-F3zxk7Q4F30Xp8fG69K1Vppj:file-F403K904F30y2vpVFqxB9kz7" \
+-ifastaIndex="project-F3zxk7Q4F30Xp8fG69K1Vppj:file-F3zyVj84F30jxYxG68vJyg68" \
+-inextflow_pipeline_params="--file_path=<file/path/> --genome_in_a_bottle=<GIAB prefix>"
 ```
  
-`docker_creds file` is `.json` file and to be created with docker user name and token as described [here](https://documentation.dnanexus.com/user/running-apps-and-workflows/running-nextflow-pipelines#private-docker-repository). Docker crendential file is to be saved in private DNAnexus project \
 `--file_path` is the dir where the all fastq files are located on DNAnexus 
 `--genome_in_a_bottle` is a string - prefix of GIAB test sample (if this variable is constant for every Dias run, I can put it in the config file, so don't need to provide in the command line) 
 
