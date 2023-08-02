@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/./master/nextflow_schema.json",
+  "title": ". pipeline parameters",
+  "description": "",
+  "type": "object",
+  "definitions": {
+    "generic_options": {
+      "title": "Generic options",
+      "type": "object",
+      "fa_icon": "fas fa-file-import",
+      "description": "Less common options for the pipeline, typically set in a config file.",
+      "help_text": "These options are common to all nf-core pipelines and allow you to customise some of the core preferences for how the pipeline runs.\n\nTypically these options would be set in a Nextflow config file loaded for all pipeline runs, such as `~/.nextflow/config`.",
+      "properties": {
+        "multiqc_config": {
+          "type": "string",
+          "description": "Custom config file to supply to MultiQC.",
+          "fa_icon": "fas fa-cog",
+          "hidden": true
+        }
+      }
+    },
+    "inputs": {
+      "title": "Inputs",
+      "type": "object",
+      "description": "",
+      "properties": {
+          "fastq_extension": {
+            "type": "string",
+            "default": "*.fastq.gz"
+          },
+          "file_path": {
+            "type": "string",
+            "default": ""
+          },
+          "fastq": {
+            "type": "string",
+            "format": "file-path",
+            "default": "[:]*.fastq.gz"
+          },
+          "outdir5": {
+            "type": "string",
+            "default": "./fastQC_output"
+          },
+          "bwaIndex": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-GX84pyQ4FKX336bxfkQV7X1X:file-F404y604F30fbxQG68KF3GZb"
+          },
+          "fastaFile": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-F3zxk7Q4F30Xp8fG69K1Vppj:file-F403K904F30y2vpVFqxB9kz7"
+          },
+          "fastaIndex": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-F3zxk7Q4F30Xp8fG69K1Vppj:file-F3zyVj84F30jxYxG68vJyg68"
+          },
+          "gatkResource": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-GX84pyQ4FKX336bxfkQV7X1X:file-GVfBK604qYV8FyVgKfBYB0Q6"
+          },
+          "file_type": {
+            "type": "string",
+            "default": "*_{L001_R1,L001_R2,L002_R1,L002_R2}_001.fastq.gz"
+          },
+          "genome_in_a_bottle": {
+            "type": "string",
+            "default": ""
+          },
+          "outdir1": {
+            "type": "string",
+            "default": "./sentieon_output"
+          },
+          "fastq_files": {
+            "type": "string",
+            "format": "file-path",
+            "default": ""
+          },
+          "fasta_index": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-F3zqGV04fXX5j7566869fjFq:file-F3zxG0Q4fXX9YFjP1v5jK9jf"
+          },
+          "bedfile": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-FzyfP204Z5qXBp6696jG5g10:file-G5jjzG0433GgkQ093K2p8PxQ"
+          },
+          "run_CollectMultipleMetrics": {
+            "type": "string",
+            "default": "false"
+          },
+          "run_CollectHsMetrics": {
+            "type": "string",
+            "default": "true"
+          },
+          "run_CollectTargetedPcrMetrics": {
+            "type": "string",
+            "default": "false"
+          },
+          "run_CollectRnaSeqMetrics": {
+            "type": "string",
+            "default": "false"
+          },
+          "outdir2": {
+            "type": "string",
+            "default": "./picard_output"
+          },
+          "vcf_file": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-Fkb6Gkj433GVVvj73J7x8KbV:file-G08V2gj41zgGYp1K79YZXqx8"
+          },
+          "outdir3": {
+            "type": "string",
+            "default": "./verifybamID_output"
+          },
+          "depth": {
+            "type": "string",
+            "default": "250,500,1000"
+          },
+          "outdir4": {
+            "type": "string",
+            "default": "./multiqC_output"
+          },
+          "num_samples": {
+            "type": "string",
+            "default": ""
+          },
+          "calc_custom_coverage": {
+            "type": "string",
+            "default": "false"
+          },
+          "outdir6": {
+            "type": "string",
+            "default": "./samtools_output"
+          },
+          "site_vcf": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-Fkb6Gkj433GVVvj73J7x8KbV:file-G18PB8Q4vQpfvPv83qKpj2QG"
+          },
+          "ref_file": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-GX84pyQ4FKX336bxfkQV7X1X:file-GXGqkX04FKX242XykfQ032Kx"
+          },
+          "ref_index_file": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-GX84pyQ4FKX336bxfkQV7X1X:file-GXGv2YQ4FKX31k6vx1g1z389"
+          },
+          "outdir7": {
+            "type": "string",
+            "default": "./somalier_combined_output"
+          },
+          "female_threshold": {
+            "type": "integer",
+            "default": 3
+          },
+          "male_threshold": {
+            "type": "integer",
+            "default": 1
+          },
+          "bed": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-Fv2gqv04kxV0QZgY3gZ1VG0P:file-Fpz2X0Q433GVK5xxPvzqvVPB"
+          },
+          "outdir8": {
+            "type": "string",
+            "default": "./mosdepth_output"
+          },
+          "outdir9": {
+            "type": "string",
+            "default": "./vcf_qc_output"
+          },
+          "high_conf_bed": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-Fkb6Gkj433GVVvj73J7x8KbV:file-FjkzKPQ4yBGgBgJ6KvyZ563P"
+          },
+          "panel_bed": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-Fkb6Gkj433GVVvj73J7x8KbV:file-G620390433GYGY34Jq6Zq1Xf"
+          },
+          "truth_vcf": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-Fkb6Gkj433GVVvj73J7x8KbV:file-FjkzKVQ4yBGkQQg53bX957G7"
+          },
+          "sdf_tar": {
+            "type": "string",
+            "format": "file-path",
+            "default": "project-Fkb6Gkj433GVVvj73J7x8KbV:file-Fjp4k3j4yBGpK4x73bzbG2P0"
+          },
+          "outdir10": {
+            "type": "string",
+            "default": "./happy_output"
+          }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "#/definitions/generic_options"
+    }
+  ]
+}
