@@ -9,8 +9,8 @@
       "title": "Generic options",
       "type": "object",
       "fa_icon": "fas fa-file-import",
-      "description": "Less common options for the pipeline, typically set in a config file.",
-      "help_text": "These options are common to all nf-core pipelines and allow you to customise some of the core preferences for how the pipeline runs.\n\nTypically these options would be set in a Nextflow config file loaded for all pipeline runs, such as `~/.nextflow/config`.",
+      "description": "schema file is required to define the format of files in nextflow config.",
+      "help_text": "set the format field as file-path for the input files.",
       "properties": {
         "multiqc_config": {
           "type": "string",
