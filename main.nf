@@ -57,7 +57,7 @@ workflow
     vcf_qc(runSentieon.out.Haplotyper_vcf_gz,params.bed)
     MULTIQC(picard.out.tsv.mix(fastQC.out.fastqc_results,runSentieon.out.sentieon_multiqc,verifybamID.out.verifybamID_qc,samtools_flagstat.out.samtools_flagstat,somalier_relate2multiqc.out.som_samples_tsv_multiqc).collect(),params.multiqc_config)
 
-    happy(params.ref_fasta,params.reference_fasta_index,params.high_conf_bed,params.panel_bed,params.truth_vcf,runSentieon.out.Haplotyper_vcf_gz.collect().map{it -> (it.findAll{it.baseName.contains(params.genome_in_a_bottle)})},params.sdf_tar)
+    happy(params.fastaFile,params.fastaIndex,params.high_conf_bed,params.panel_bed,params.truth_vcf,runSentieon.out.Haplotyper_vcf_gz.collect().map{it -> (it.findAll{it.baseName.contains(params.genome_in_a_bottle)})},params.sdf_tar)
     reppy(happy.out.happy_roc)
 
     if (params.calc_custom_coverage==true) {
